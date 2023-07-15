@@ -8,13 +8,17 @@ import { Provider } from "react-redux";
 import store from "./redux/config/configStore";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
+import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
+import inobaoQuery from "./redux/api/api";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
+        <ApiProvider api={inobaoQuery}>
         <App />
+        </ApiProvider>
       </Provider>
     </ThemeProvider>
   </BrowserRouter>
