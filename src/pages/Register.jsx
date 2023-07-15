@@ -107,7 +107,7 @@ const Register = () => {
             />
             <ToggleSlider />
           </ToggleSwitch>
-          Admin Registration
+          관리자 회원가입시
         </Label>
         <br />
         {isAdmin && (
