@@ -22,7 +22,6 @@ const PostWrite = styled(FlexBox)`
       background-color: ${theme.color.lightgreen2};
     `
   }
-
 `
 
 const PostInput = styled.textarea`
@@ -76,6 +75,12 @@ const PostsLayout = styled(FlexBox)`
   flex-direction: column;
   width: 100%;
 `
+const PostBoxLayouy = styled.div`
+  border: 1px solid ${({theme}) => theme.color.gray};
+  width: 90%;
+  border-radius: 20px;
+  overflow: hidden;
+`
 
 const PostsBox = styled(PostWrite)`
   ${Flex}
@@ -93,8 +98,8 @@ const PostsText = styled.div`
 const PostsComment = styled.div`
   ${Flex}
   width: 100%;
-  background-color: yellow;
+  /* background-color: yellow; */
 `
 
 
-export { PostLayout, PostWrite, PostInput, PhotoBtn,PostBtn, PostsLayout, PostsBox, PostsText, PostsComment }
+export { PostLayout, PostWrite, PostInput, PhotoBtn,PostBtn, PostsLayout, PostBoxLayouy, PostsBox, PostsText, PostsComment }
