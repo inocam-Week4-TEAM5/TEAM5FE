@@ -34,52 +34,113 @@ const Register = () => {
     setAdminCode(e.target.value);
   };
 
-  const handleEmailDuplicateCheck = (e) => {
+  const [modalDuplicateMessage, setModalDuplicateMessage] = useState('');
+  const [modalSuccessMessage, setModalSuccessMessage] = useState('');
+  const [modalFailureMessage, setModalFailureMessage] = useState('');
+
+  const handleEmailDuplicateCheck = async (e) => {
     e.preventDefault();
-    // 중복 확인 로직을 작성합니다.
-    // 실제로는 서버로 요청을 보내고 응답을 처리해야 합니다.
-    // 여기서는 예시로 상태만 변경하여 모달을 열고 닫습니다.
-    setIsEmailDuplicate(true);
-    setModalIsOpen(true);
+    try {
+      const response = await fetch('/api/auth/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }), // 이메일을 서버로 전송합니다.
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsEmailDuplicate(data.isDuplicate);
+        setModalDuplicateMessage(data.isDuplicate ? '사용 중인 이메일입니다.' : '사용 가능한 이메일입니다.');
+      } else {
+        setIsEmailDuplicate(false);
+        setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
+      }
+      setModalIsOpen(true);
+    } catch (error) {
+      setIsEmailDuplicate(false);
+      setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
+      setModalIsOpen(true);
+    }
   };
 
-  const handleNicknameDuplicateCheck = (e) => {
+  const handleNicknameDuplicateCheck = async (e) => {
     e.preventDefault();
-    // 중복 확인 로직을 작성합니다.
-    // 실제로는 서버로 요청을 보내고 응답을 처리해야 합니다.
-    // 여기서는 예시로 상태만 변경하여 모달을 열고 닫습니다.
-    setIsNicknameDuplicate(true);
-    setModalIsOpen(true);
+    try {
+      const response = await fetch('/api/auth/nickname', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nickname }), // 닉네임을 서버로 전송합니다.
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsNicknameDuplicate(data.isDuplicate);
+        setModalDuplicateMessage(data.isDuplicate ? '사용 중인 닉네임입니다.' : '사용 가능한 닉네임입니다.');
+      } else {
+        setIsNicknameDuplicate(false);
+        setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
+      }
+      setModalIsOpen(true);
+    } catch (error) {
+      setIsNicknameDuplicate(false);
+      setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
+      setModalIsOpen(true);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          nickname,
+          isAdmin: isAdmin,
+          adminCode,
+        }),
+      });
+
+      if (response.ok) {
+        setModalSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
+      } else {
+        setModalFailureMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
+      }
+      setModalIsOpen(true);
+    } catch (error) {
+      setModalFailureMessage('오류가 발생했습니다. 다시 시도해주세요.');
+      setModalIsOpen(true);
+    }
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 회원가입 처리 로직을 작성합니다.
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Nickname:', nickname);
-    console.log('IsAdmin:', isAdmin);
-    console.log('Admin Code:', adminCode);
-    // 실제로는 서버로 요청을 보내고 응답을 처리해야 합니다.
+    setModalDuplicateMessage('');
+    setModalSuccessMessage('');
+    setModalFailureMessage('');
   };
 
   return (
     <Container>
       <Title>TEAM9 ID 생성</Title>
       <Form onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <DuplicateCheckButton onClick={handleEmailDuplicateCheck}>
-          중복 확인
-        </DuplicateCheckButton>
+    <Input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={handleEmailChange}
+    />
+    <DuplicateCheckButton onClick={handleEmailDuplicateCheck}>
+      중복 확인
+    </DuplicateCheckButton>
         <br />
         <InputPw
           type="password"
@@ -88,15 +149,15 @@ const Register = () => {
           onChange={handlePasswordChange}
         />
         <br />
-        <Input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={handleNicknameChange}
-        />
-        <DuplicateCheckButton onClick={handleNicknameDuplicateCheck}>
-          중복 확인
-        </DuplicateCheckButton>
+    <Input
+      type="text"
+      placeholder="Nickname"
+      value={nickname}
+      onChange={handleNicknameChange}
+    />
+    <DuplicateCheckButton onClick={handleNicknameDuplicateCheck}>
+      중복 확인
+    </DuplicateCheckButton>
         <br />
         <Label>
           <ToggleSwitch>
@@ -146,13 +207,12 @@ const Register = () => {
           },
         }}
       >
-        {isEmailDuplicate || isNicknameDuplicate ? (
-          <ModalMessage>중복입니다.</ModalMessage>
-        ) : (
-          <ModalMessage>사용 가능합니다.</ModalMessage>
-        )}
+        {modalDuplicateMessage && <ModalMessage>{modalDuplicateMessage}</ModalMessage>}
+        {modalSuccessMessage && <ModalMessage>{modalSuccessMessage}</ModalMessage>}
+        {modalFailureMessage && <ModalMessage>{modalFailureMessage}</ModalMessage>}
         <ModalButton onClick={closeModal}>닫기</ModalButton>
       </Modal>
+
     </Container>
   );
 };
@@ -250,6 +310,7 @@ const ToggleCheckbox = styled.input`
 
 const Button = styled.button`
   padding: 8px 16px;
+  margin-top: 80px;
 `;
 
 const ModalMessage = styled.p`
