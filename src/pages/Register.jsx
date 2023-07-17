@@ -177,13 +177,13 @@ const Form = styled.form`
 const Input = styled.input`
   padding: 8px;
   margin-bottom: 10px;
-  position: relative;
-  right: -40px;
 `;
 
 const InputPw = styled.input`
   padding: 8px;
   margin-bottom: 10px;
+  position: relative;
+  right: 44px;
 `;
 
 const DuplicateCheckButton = styled.button`
