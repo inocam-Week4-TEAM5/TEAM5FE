@@ -6,18 +6,19 @@ import { FlexBox } from "../../../styled";
 import UserImg from "../../atom/UserImg";
 import { SidebarContext } from "../../organism/Header";
 import { useUtilities } from "../../../hooks/useUtilities";
+import { theme } from "../../../theme";
 
 
 function SideBar() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
-  const { changeState } = useUtilities();
+  const { changeState, FalseState } = useUtilities();
   const { MoblieClickNavigate, MobileHeaderLinks } = useRouter(
     changeState(setSideBar)
   );
   return (
-    <SC.SideBar $sidebar={sidebar} onMouseLeave={changeState(setSideBar)}>
+    <SC.SideBar $sidebar={sidebar} onMouseLeave={FalseState(setSideBar)}>
       <FlexBox $fd="column" $type="sideBar">
-        <UserImg size={100} color="#fff"/>
+        <UserImg size={100} color={theme.color.white} icolor={theme.color.green}/>
         <div className="nickName" children="NickName" />
         <FlexBox $fd="column" $gap="2em" $type="sideBarNav">
           {MobileHeaderLinks.map(({ innerText, path }) => (

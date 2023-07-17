@@ -4,8 +4,10 @@ import { css, styled } from "styled-components";
 /* About css styled ---------------------------------------------- */
 export const Flex = css`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: ${({ $fd }) => ($fd ? $fd : "row")};
+  justify-content: ${({ $jc }) => ($jc ? $jc : "center")};
+  align-items: ${({ $ai }) => ($ai ? $ai : "center")};
+  gap: ${({ $gap }) => ($gap ? $gap : "none")};
 `;
 
 export const cursor = css`
@@ -19,12 +21,7 @@ export const Layout = css`
 
 /* About Div styled ---------------------------------------------- */
 const FlexBox = styled.div`
-  background-color: transparent;
-  display: flex;
-  flex-direction: ${({ $fd }) => ($fd ? $fd : "row")};
-  justify-content: ${({ $jc }) => ($jc ? $jc : "center")};
-  align-items: ${({ $ai }) => ($ai ? $ai : "center")};
-  gap: ${({ $gap }) => ($gap ? $gap : "none")};
+  ${Flex}
 
   ${({$type}) => $type === "sideBar"
     ? css`margin-top: 10vh;`
@@ -33,7 +30,6 @@ const FlexBox = styled.div`
       position: absolute;
       top: 50vh;`
     : $type === "mobilePost" && css`
-      margin-top: 1rem;
       width:100%`
   }    
 `;

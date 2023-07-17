@@ -2,5 +2,8 @@ export const useUtilities = () => {
   const changeState = (setstate) => () => {
     setstate(pre => !pre)
   }
-  return { changeState }
+  const FalseState = (setstate) => () => {
+    setstate(false)
+  }
+  return { changeState,FalseState }
 }

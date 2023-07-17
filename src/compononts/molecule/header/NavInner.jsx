@@ -8,6 +8,7 @@ import { VscLayoutSidebarRight } from "react-icons/vsc";
 import { SidebarContext } from "../../organism/Header";
 import { useRouter } from '../../../hooks/useRouter'
 import { useUtilities } from '../../../hooks/useUtilities'
+import { theme } from "../../../theme";
 
 
 function NavInner() {
@@ -17,10 +18,10 @@ function NavInner() {
   return (
     <SC.NavLayout>
       <SC.NavInner>
-        <FlexBox onClick={ClickNavigate("/")}>
+        <FlexBox onClick={ClickNavigate("/")} style={{cursor:"pointer"}}>
           <Figure
             $width="80px"
-            children={<img src={inocam} alt="로고" width="100%" />}
+            children={<img src={inocam} alt="로고" width="100%" height="fit-content" />}
           />
           <SC.TitleH $fontS="2rem" $font="PartialSans" children="InoBao" />
         </FlexBox>
@@ -40,7 +41,7 @@ function NavInner() {
         <SC.SideBarBtn onClick={changeState(setSideBar)}>
           <VscLayoutSidebarRight
             size={20}
-            color={sidebar ? "#ffffff" : "#539B39"}
+            color={sidebar ? theme.color.white : theme.color.green}
           />
         </SC.SideBarBtn>
       </SC.NavInner>

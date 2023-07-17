@@ -9,7 +9,7 @@ const NavLayout = styled.nav`
 const NavInner = styled.div`
   ${Flex}
   ${Layout}
-  height: 80px;
+  height: ${({theme}) => theme.hederHeight};
   padding: 0 1rem;
   justify-content: space-between;
 
@@ -62,7 +62,7 @@ const SideBar = styled.div`
   right: -80vw;
   width: 60vw;
   height: 100vh;
-  background-color: #9abe70;
+  background-color: ${({theme}) => theme.color.lightgreen};
   transition: all 0.5s;
   z-index: 5;
 
@@ -88,7 +88,7 @@ const SideNavLink = styled.div`
   height: 2em;
   font-size: 1.5rem;
   border: 1px solid black;
-  background-color: #fff;
+  background-color: ${({theme}) => theme.color.white};
   transform: rotate(20deg);
   transition: all 0.2s;
 

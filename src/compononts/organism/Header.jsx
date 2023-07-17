@@ -10,15 +10,17 @@ function Header() {
 
   return (
     <>
-      <SidebarContext.Provider
-        value={{ sidebar, setSideBar }}
-        children={
-          <>
-            <NavInner />
-            <SideBar />
-          </>
-        }
-      />
+      <div style={{ position:"fixed", top:0, width:"100%", backgroundColor:"white" }}>
+        <SidebarContext.Provider
+          value={{ sidebar, setSideBar }}
+          children={
+            <div style={{ position: "relative"}}>
+              <NavInner />
+              <SideBar />
+            </div>
+          }
+        />
+      </div>
       <Outlet />
     </>
   );
