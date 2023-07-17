@@ -15,7 +15,7 @@ export const useRouter = (changeState) => {
   const HeaderLinks = [
     {innerText:"Post", path:"/post"},
     {innerText:"회원가입", path:"/"},
-    {innerText:"로그인", path:"/"},
+    // {innerText:"로그인", path:"/"},
   ]
   const MobileHeaderLinks = [
     {innerText:"Home", path:"/"}, 

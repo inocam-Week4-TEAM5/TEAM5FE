@@ -10,6 +10,7 @@ import { useUtilities } from '../../../hooks/useUtilities'
 import { theme } from "../../../theme";
 import { SidebarContext } from "../../organism";
 import * as SC from "../../css/headerStyle";
+import { usePostLoginRTKMutation } from "../../../redux/api/api";
 
 
 
@@ -17,6 +18,8 @@ export function NavInnerContainer() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
   const { changeState } = useUtilities();
   const { ClickNavigate, HeaderLinks } = useRouter();
+  const [postLoginRTK] = usePostLoginRTKMutation()
+
   return (
     <SC.NavLayout>
       <SC.NavInner>
@@ -38,6 +41,12 @@ export function NavInnerContainer() {
               children={innerText}
             />
           ))}
+          <SC.TitleH
+              $fontS="1.2rem"
+              $cursor={true}
+              onClick={()=>postLoginRTK({ email: "test", password: "test1" })}
+              children={"로그인"}
+            />
         </FlexBox>
 
         <SC.SideBarBtn onClick={changeState(setSideBar)}>

@@ -5,7 +5,7 @@ import { NavInnerContainer } from "../molecule";
 import { SideBarContainer } from "../molecule/header/SideBarContainer";
 export const SidebarContext = createContext(null);
 
-function Header() {
+export function Header() {
   const [sidebar, setSideBar] = useState(false);
 
   return (
@@ -25,5 +25,3 @@ function Header() {
     </>
   );
 }
-
-export default Header;

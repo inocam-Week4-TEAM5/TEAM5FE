@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import * as Compo from "../compononts"; // 상대경로 설정
 
-function Post() {
+export function Post() {
   
   const onLoginHandler = async () => {
     try {
@@ -36,8 +36,6 @@ function Post() {
     </Compo.PostLayout>
   );
 }
-
-export default Post;
 
 /*
   이미지 리사이징 관련 

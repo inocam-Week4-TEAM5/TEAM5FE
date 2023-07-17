@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { HiPhotograph } from "react-icons/hi";
-import { usePostImgRTKMutation } from '../../../redux/api/api';
-import imageCompression from "browser-image-compression";
-import { PhotoBtn, PostBtn, PostInput, PostWrite } from '../../css';
 import { FlexBox } from '../../../styled';
+import { HiPhotograph } from "react-icons/hi";
+import imageCompression from "browser-image-compression";
+import React, { useEffect, useRef, useState } from 'react'
+import { usePostPostsRTKMutation } from '../../../redux/api/api';
+import { PhotoBtn, PostBtn, PostInput, PostWrite } from '../../css';
 
 export function PostForm() {
   const postRef = useRef(null);
   const [postText, setPostText] = useState("");
   const [postImge, setpostImg] = useState("");
   const [showImg, setShowImg] = useState([]);
-  const [postImgRTK] = usePostImgRTKMutation();
+  const [postImgRTK] = usePostPostsRTKMutation();
   
   // Textarea에 대한 동적 Height 조절 핸들러
   const onChangeHeight = (e) => {
