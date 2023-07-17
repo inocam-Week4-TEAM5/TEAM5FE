@@ -75,7 +75,7 @@ const PostsLayout = styled(FlexBox)`
   flex-direction: column;
   width: 100%;
 `
-const PostBoxLayouy = styled.div`
+const PostBoxLayout = styled.div`
   border: 1px solid ${({theme}) => theme.color.gray};
   width: 90%;
   border-radius: 20px;
@@ -102,4 +102,4 @@ const PostsComment = styled.div`
 `
 
 
-export { PostLayout, PostWrite, PostInput, PhotoBtn,PostBtn, PostsLayout, PostBoxLayouy, PostsBox, PostsText, PostsComment }
+export { PostLayout, PostWrite, PostInput, PhotoBtn,PostBtn, PostsLayout, PostBoxLayout, PostsBox, PostsText, PostsComment }

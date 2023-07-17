@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  PostBoxLayouy,
-  PostLayout,
-  PostsLayout,
-} from "../compononts/css/postStyle";
-import PostForm from "../compononts/organism/post/PostForm";
 import axios from "axios";
-import PostBox from "../compononts/organism/post/PostBox";
+import * as Compo from "../compononts"; // 상대경로 설정
 
 function Post() {
-
+  
   const onLoginHandler = async () => {
     try {
       let res = await axios.post(`${process.env.REACT_APP_INOCAM_KEY}/api/auth/login`, {
-        email: "zs2311@gmail.com",
-        passward: "sassdf"
+        username: "asdf1111",
+        password: "asdf1111"
       })
       console.log(res)
     } catch (error) {
@@ -23,23 +17,23 @@ function Post() {
   }
 
   return (
-    <PostLayout $fd="column" $gap="2rem">
+    <Compo.PostLayout $fd="column" $gap="2rem">
       {/* Post 생성하기에 대한 뷰포트 */}
-      <PostForm/>
+      <Compo.PostForm/>
 
       {/* Post 게시글 뷰포트 */}
-      <button onClick={onLoginHandler}>로그인 테스트</button>
-      <PostsLayout>
-        <PostBoxLayouy>
+      <button onClick={onLoginHandler}>로그인 테스트1</button>
+      <Compo.PostsLayout>
+        <Compo.PostBoxLayout>
 
         {Array.from({length:10}, () => 0).map((_,index) => index % 2 === 0 
-          ?  <PostBox key={index}/>
-          :  <PostBox key={index} $backColor={"postsEven"}/>
+          ?  <Compo.PostBox key={index}/>
+          :  <Compo.PostBox key={index} $backColor={"postsEven"}/>
         )}  
         
-        </PostBoxLayouy>
-      </PostsLayout>
-    </PostLayout>
+        </Compo.PostBoxLayout>
+      </Compo.PostsLayout>
+    </Compo.PostLayout>
   );
 }
 

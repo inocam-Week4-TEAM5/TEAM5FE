@@ -1,10 +1,10 @@
 import React from "react";
-import UserImg from "../../atom/UserImg";
+import { UserImg } from "../../atom";
+import { theme } from "../../../theme";
 import { FlexBox } from "../../../styled";
 import { PostsText } from "../../css/postStyle";
-import { theme } from "../../../theme";
 
-function PostBoxIndividual ({children}) {
+export function PostBoxIndividual ({children}) {
   return (
     <>
       <UserImg size={20} color={theme.color.gray} icolor={theme.color.white} />
@@ -18,5 +18,3 @@ function PostBoxIndividual ({children}) {
     </>
   );
 }
-
-export default PostBoxIndividual;

@@ -3,13 +3,13 @@ import * as SC from "../../css/headerStyle";
 import { useRouter } from "../../../hooks/useRouter";
 import { FlexBox } from "../../../styled";
 /* 컴포넌트 및 Hooks 관련 */
-import UserImg from "../../atom/UserImg";
 import { SidebarContext } from "../../organism/Header";
 import { useUtilities } from "../../../hooks/useUtilities";
 import { theme } from "../../../theme";
+import { UserImg } from "../../atom";
 
 
-function SideBar() {
+export function SideBarContainer() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
   const { changeState, FalseState } = useUtilities();
   const { MoblieClickNavigate, MobileHeaderLinks } = useRouter(
@@ -35,5 +35,3 @@ function SideBar() {
     </SC.SideBar>
   );
 }
-
-export default SideBar;

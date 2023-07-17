@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { PhotoBtn, PostBtn, PostInput, PostWrite } from '../../css/postStyle'
-import { FlexBox } from '../../../styled'
 import { HiPhotograph } from "react-icons/hi";
 import { usePostImgRTKMutation } from '../../../redux/api/api';
 import imageCompression from "browser-image-compression";
+import { PhotoBtn, PostBtn, PostInput, PostWrite } from '../../css';
+import { FlexBox } from '../../../styled';
 
-function PostForm() {
+export function PostForm() {
   const postRef = useRef(null);
   const [postText, setPostText] = useState("");
   const [postImge, setpostImg] = useState("");
@@ -22,7 +22,7 @@ function PostForm() {
   // 이미지 리사이징에 대한 핸들러
   const actionImgResize = async (files) => {
     const options = {
-      maxSizeMB: 2, // 1000000b === 1000kb === 1mb
+      maxSizeMB: 2, // 1000000b === 1000kb === 1mb //
       maxWidthOrHeight: 500,
       useWebWorker: true,
     };
@@ -80,26 +80,15 @@ function PostForm() {
         $mTop={30}
         $borderR={20}
         $border={true}
+        $gap=".5em"
         onSubmit={onSubmitHandler}
       >
-        <PostInput
-          ref={postRef}
-          type="text"
-          value={postText}
-          placeholder="오늘의 대나무숲 이야기는?"
-          onChange={onChangeHeight}
-        />
-        <FlexBox
-          $jc="flex-start"
-          $ai="start"
-          $gap="3.3%"
-          style={{ width: "100%", flexWrap: "wrap" }}
-        >
-          {showImg &&
-            showImg.map((img, inx) => (
-              <img key={inx} src={img} width="22.5%" alt="previewImg" />
-            ))}
+        <PostInput ref={postRef} type="text" value={postText} placeholder="오늘의 대나무숲 이야기는?" onChange={onChangeHeight} />
+        
+        <FlexBox $jc="flex-start" $ai="start" $gap="3.3%" style={{ width: "100%", flexWrap: "wrap" }}>
+          {showImg && showImg.map((img, inx) => ( <img key={inx} src={img} width="22.5%" alt="previewImg" /> ))}
         </FlexBox>
+
         <PhotoBtn>
           <label htmlFor="postFile">
             {
@@ -131,5 +120,3 @@ function PostForm() {
       </PostWrite>
   )
 }
-
-export default PostForm

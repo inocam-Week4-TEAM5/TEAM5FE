@@ -25,7 +25,7 @@ const axiosBaseQuery =
     }
   };
 
-const inobaoQuery = createApi({
+export const inobaoQuery = createApi({
   baseQuery:axiosBaseQuery(),
   tagTypes:["POST"],
   endpoints: builder =>({
@@ -37,4 +37,3 @@ const inobaoQuery = createApi({
 })
 
 export const {usePostImgRTKMutation} = inobaoQuery
-export default inobaoQuery

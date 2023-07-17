@@ -1,17 +1,19 @@
 import React, { useContext } from "react";
 /* 스타일 및 아이콘 관련 */
-import * as SC from "../../css/headerStyle";
+
 import inocam from "../../../img/inocam.png";
 import { Figure, FlexBox } from "../../../styled";
 import { VscLayoutSidebarRight } from "react-icons/vsc";
 /* 컴포넌트 및 Hooks 관련 */
-import { SidebarContext } from "../../organism/Header";
 import { useRouter } from '../../../hooks/useRouter'
 import { useUtilities } from '../../../hooks/useUtilities'
 import { theme } from "../../../theme";
+import { SidebarContext } from "../../organism";
+import * as SC from "../../css/headerStyle";
 
 
-function NavInner() {
+
+export function NavInnerContainer() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
   const { changeState } = useUtilities();
   const { ClickNavigate, HeaderLinks } = useRouter();
@@ -48,5 +50,3 @@ function NavInner() {
     </SC.NavLayout>
   );
 }
-
-export default NavInner;

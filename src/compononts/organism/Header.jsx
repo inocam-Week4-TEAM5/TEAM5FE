@@ -1,8 +1,8 @@
 import React, { useState, createContext } from "react";
 /* 컴포넌트 및 Hooks 관련 */
 import { Outlet } from "react-router-dom";
-import SideBar from "../molecule/header/SideBar";
-import NavInner from "../molecule/header/NavInner";
+import { NavInnerContainer } from "../molecule";
+import { SideBarContainer } from "../molecule/header/SideBarContainer";
 export const SidebarContext = createContext(null);
 
 function Header() {
@@ -15,8 +15,8 @@ function Header() {
           value={{ sidebar, setSideBar }}
           children={
             <div style={{ position: "relative"}}>
-              <NavInner />
-              <SideBar />
+              <NavInnerContainer />
+              <SideBarContainer />
             </div>
           }
         />
