@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,10 +17,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 로그인 처리 로직을 작성합니다.
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // 실제로는 서버로 요청을 보내고 응답을 처리해야 합니다.
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          navigate('/post');
+        }
+      })
+      .catch((error) => {
+        console.error('에러:', error);
+      });
   };
 
   return (
@@ -27,19 +41,19 @@ const Login = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           type="email"
-          placeholder="Email"
+          placeholder="이메일"
           value={email}
           onChange={handleEmailChange}
         />
         <br />
         <Input
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호"
           value={password}
           onChange={handlePasswordChange}
         />
         <br />
-        <Button type="submit">Login</Button>
+        <Button type="submit">로그인</Button>
       </Form>
     </Container>
   );
