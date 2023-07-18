@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+
 
 Modal.setAppElement('#root');
 
 const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); // 관리자 회원가입 여부
-  const [adminCode, setAdminCode] = useState(''); // 관리자 코드
+  const [admin, setAdmin] = useState(false); // 관리자 회원가입 여부
+  const [adminToken, setAdminToken] = useState(''); // 관리자 코드
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
   const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -27,11 +30,11 @@ const Register = () => {
   };
 
   const handleToggleAdmin = () => {
-    setIsAdmin(!isAdmin);
+    setAdmin(!admin);
   };
 
   const handleAdminCodeChange = (e) => {
-    setAdminCode(e.target.value);
+    setAdminToken(e.target.value);
   };
 
   const [modalDuplicateMessage, setModalDuplicateMessage] = useState('');
@@ -41,7 +44,7 @@ const Register = () => {
   const handleEmailDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/email', {
+      const response = await fetch(`http://18.219.10.23:8080/api/auth/email?email=${email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +55,7 @@ const Register = () => {
       if (response.ok) {
         const data = await response.json();
         setIsEmailDuplicate(data.isDuplicate);
-        setModalDuplicateMessage(data.isDuplicate ? '사용 중인 이메일입니다.' : '사용 가능한 이메일입니다.');
+        setModalDuplicateMessage(data ? '사용 가능한 이메일입니다.' : '사용 중인 이메일입니다.');
       } else {
         setIsEmailDuplicate(false);
         setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
@@ -68,7 +71,7 @@ const Register = () => {
   const handleNicknameDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/nickname', {
+      const response = await fetch(`http://18.219.10.23:8080/api/auth/nickname?nickname=${nickname}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +82,7 @@ const Register = () => {
       if (response.ok) {
         const data = await response.json();
         setIsNicknameDuplicate(data.isDuplicate);
-        setModalDuplicateMessage(data.isDuplicate ? '사용 중인 닉네임입니다.' : '사용 가능한 닉네임입니다.');
+        setModalDuplicateMessage(data ? '사용 가능한 닉네임입니다.' : '사용 중인 닉네임입니다.');
       } else {
         setIsNicknameDuplicate(false);
         setModalDuplicateMessage('중복 확인 중 오류가 발생했습니다.');
@@ -95,7 +98,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/signin', {
+      const response = await fetch('http://18.219.10.23:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,13 +107,14 @@ const Register = () => {
           email,
           password,
           nickname,
-          isAdmin: isAdmin,
-          adminCode,
+          admin: admin,
+          adminToken,
         }),
       });
 
       if (response.ok) {
         setModalSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
+        navigate('/login');
       } else {
         setModalFailureMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
       }
@@ -142,13 +146,6 @@ const Register = () => {
       중복 확인
     </DuplicateCheckButton>
         <br />
-        <InputPw
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <br />
     <Input
       type="text"
       placeholder="Nickname"
@@ -158,12 +155,19 @@ const Register = () => {
     <DuplicateCheckButton onClick={handleNicknameDuplicateCheck}>
       중복 확인
     </DuplicateCheckButton>
+    <br />
+        <InputPw
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
         <br />
         <Label>
           <ToggleSwitch>
             <ToggleCheckbox
               type="checkbox"
-              checked={isAdmin}
+              checked={admin}
               onChange={handleToggleAdmin}
             />
             <ToggleSlider />
@@ -171,11 +175,11 @@ const Register = () => {
           관리자 회원가입시
         </Label>
         <br />
-        {isAdmin && (
+        {admin && (
           <InputPw
             type="password"
             placeholder="Admin Code"
-            value={adminCode}
+            value={adminToken}
             onChange={handleAdminCodeChange}
           />
         )}
@@ -243,7 +247,7 @@ const InputPw = styled.input`
   padding: 8px;
   margin-bottom: 10px;
   position: relative;
-  right: 44px;
+  right: 39px;
 `;
 
 const DuplicateCheckButton = styled.button`

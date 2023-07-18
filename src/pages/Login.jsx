@@ -15,24 +15,30 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          navigate('/post');
-        }
-      })
-      .catch((error) => {
-        console.error('에러:', error);
+    try {
+      const response = await fetch('http://18.219.10.23:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
       });
+      if (!response.ok) {
+        throw new Error('로그인 실패');
+      }
+      // Here we get the JWT token from the response headers
+      const token = response.headers.get('Authorization');
+      if (token) {
+        window.localStorage.setItem('jwtToken', token);
+        navigate('/post');
+      } else {
+        throw new Error('JWT 토큰이 응답 헤더에 없습니다');
+      }
+    } catch (error) {
+      alert('아이디 혹은 비밀번호를 잘못 입력하셨거나 없는 회원 아이디입니다.');
+    }
   };
 
   return (
@@ -41,14 +47,14 @@ const Login = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           type="email"
-          placeholder="이메일"
+          placeholder="Email"
           value={email}
           onChange={handleEmailChange}
         />
         <br />
         <Input
           type="password"
-          placeholder="비밀번호"
+          placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
         />
