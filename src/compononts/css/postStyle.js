@@ -11,7 +11,8 @@ const PostWrite = styled(FlexBox)`
   background-color: ${({theme}) => theme.color.white};
   margin-top: ${({$mTop}) => $mTop}px;
   width: 90%;
-  min-height: 150px;
+  
+  min-height: ${({$minH})=> $minH || "150px"};
   border-radius:${({$borderR}) => `${$borderR}px`};
   padding: 1rem 2rem;
   ${({$border, theme}) => $border && css`
@@ -29,7 +30,7 @@ const PostInput = styled.textarea`
   border: none;
   font-size: 1.2rem;
   width: 100%;
-  height: 60px;
+  /* height: 60px; */
   resize: none;
   overflow: hidden;
 

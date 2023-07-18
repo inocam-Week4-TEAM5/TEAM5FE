@@ -17,21 +17,41 @@ export const cursor = css`
 export const Layout = css`
   max-width: 1200px;
   margin: 0 auto;
-`
+`;
 
 /* About Div styled ---------------------------------------------- */
 const FlexBox = styled.div`
   ${Flex}
 
-  ${({$type}) => $type === "sideBar"
-    ? css`margin-top: 10vh;`
-    : $type === "sideBarNav"
-    ? css`
-      position: absolute;
-      top: 50vh;`
-    : $type === "mobilePost" && css`
-      width:100%`
-  }    
+  ${({ $type }) =>
+    $type === "sideBar"
+      ? css`
+          margin-top: 10vh;
+        `
+      : $type === "sideBarNav"
+      ? css`
+          position: absolute;
+          top: 50vh;
+        `
+      : $type === "mobilePost"
+      ? css`
+          width: 100%;
+        `
+      : $type === "imageUrls" &&
+        css`
+          width: 100%;
+          flex-wrap: wrap;
+
+          img {
+            width: 22.5%;
+          }
+
+          @media (max-width: 700px) {
+            img {
+              width: 45%;
+            }
+          }
+        `}
 `;
 
 const Figure = styled.figure`
@@ -42,12 +62,12 @@ const Figure = styled.figure`
   }
 `;
 
-const UserBox =styled.div`
+const UserBox = styled.div`
   ${Flex}
   border-radius: 50%;
-  width: ${({$size})=> $size}px;
-  height: ${({$size})=> $size}px;
-  background-color: ${({$color})=> $color}
-`
+  width: ${({ $size }) => $size}px;
+  height: ${({ $size }) => $size}px;
+  background-color: ${({ $color }) => $color};
+`;
 
 export { FlexBox, Figure, UserBox };

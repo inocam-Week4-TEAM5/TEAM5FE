@@ -16,8 +16,8 @@ function App() {
           <Route path="register" element={<Pages.Register />} />
           <Route path="admin" element={<Pages.Admin />} />
           <Route path="errorboundery" element={<Pages.ErrorBoundery />} />
+          <Route path="*" element={<Pages.NotFound />} />
         </Route>
-        <Route path="*" element={<Pages.NotFound />} />
       </Routes>
     </>
   );

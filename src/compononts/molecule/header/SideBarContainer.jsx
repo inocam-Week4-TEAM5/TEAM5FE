@@ -12,9 +12,10 @@ import { UserImg } from "../../atom";
 export function SideBarContainer() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
   const { changeState, FalseState } = useUtilities();
-  const { MoblieClickNavigate, MobileHeaderLinks } = useRouter(
+  const { MoblieClickNavigate, MoblieLoginNavigate, MobileHeaderLinks } = useRouter(
     changeState(setSideBar)
   );
+
   return (
     <SC.SideBar $sidebar={sidebar} onMouseLeave={FalseState(setSideBar)}>
       <FlexBox $fd="column" $type="sideBar">
@@ -30,6 +31,13 @@ export function SideBarContainer() {
               children={innerText}
             />
           ))}
+          <SC.SideNavLink
+              $fontS="1.2rem"
+              $cursor={true}
+              // onClick={MoblieLoginNavigate({ email: "zin9@gmail.com", password: "sassdf" })}  // 진웅님
+              onClick={MoblieLoginNavigate({ email: "test12345", password: "test12345" })}  // 재익님
+              children="로그인"
+            />
         </FlexBox>
       </FlexBox>
     </SC.SideBar>

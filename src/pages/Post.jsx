@@ -1,41 +1,40 @@
 import React from "react";
-import axios from "axios";
+
 import * as Compo from "../compononts"; // 상대경로 설정
+import { useGetPostRTKQuery } from "../redux";
+// import { useToken } from "../hooks/useToken";
 
 export function Post() {
-  
-  const onLoginHandler = async () => {
-    try {
-      let res = await axios.post(`${process.env.REACT_APP_INOCAM_KEY}/api/auth/login`, {
-        username: "asdf1111",
-        password: "asdf1111"
-      })
-      console.log(res)
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
 
+  const {isLoading, isError, data} = useGetPostRTKQuery()
+
+  if (isLoading) return <div>로딩중</div>
   return (
     <Compo.PostLayout $fd="column" $gap="2rem">
       {/* Post 생성하기에 대한 뷰포트 */}
       <Compo.PostForm/>
-
       {/* Post 게시글 뷰포트 */}
-      <button onClick={onLoginHandler}>로그인 테스트1</button>
       <Compo.PostsLayout>
         <Compo.PostBoxLayout>
 
-        {Array.from({length:10}, () => 0).map((_,index) => index % 2 === 0 
+
+        {/* {Array.from({length:10}, () => 0).map((_,index) => index % 2 === 0 
           ?  <Compo.PostBox key={index}/>
           :  <Compo.PostBox key={index} $backColor={"postsEven"}/>
-        )}  
+        )}   */}
+
+        {data && data.map((posts, index) => index % 2 === 0 
+          ? <Compo.PostBox key={index} data={posts}/>
+          : <Compo.PostBox key={index} $backColor={"postsEven"} data={posts}/>
+          )}
         
         </Compo.PostBoxLayout>
       </Compo.PostsLayout>
     </Compo.PostLayout>
   );
 }
+
+
 
 /*
   이미지 리사이징 관련 

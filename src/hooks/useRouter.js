@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom"
+import { usePostLoginRTKMutation } from "../redux"
 
 export const useRouter = (changeState) => {
   const navigate = useNavigate()
+  const [postLoginRTK] = usePostLoginRTKMutation()
 
   const ClickNavigate = (path) => () => {
     navigate(path)
@@ -9,6 +11,11 @@ export const useRouter = (changeState) => {
 
   const MoblieClickNavigate = (path) => () => {
     ClickNavigate(path)()
+    changeState()
+  }
+
+  const MoblieLoginNavigate = (path) => () => {
+    postLoginRTK(path)
     changeState()
   }
 
@@ -22,5 +29,5 @@ export const useRouter = (changeState) => {
     ...HeaderLinks
   ]
 
-  return { ClickNavigate, MoblieClickNavigate,HeaderLinks, MobileHeaderLinks }
+  return { ClickNavigate, MoblieClickNavigate, MoblieLoginNavigate, HeaderLinks, MobileHeaderLinks }
 }

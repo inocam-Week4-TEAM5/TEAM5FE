@@ -14,6 +14,13 @@ export const GlobalStyled = createGlobalStyle`
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'YanoljaYacheR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YanoljaYacheR.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
   html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ol, ul, li, fieldset, form, label, legend, article,figure, figcaption, footer, header,nav, section {
   box-sizing: border-box;
 	margin: 0;
