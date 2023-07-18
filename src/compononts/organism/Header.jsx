@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <>
-      <div style={{ position:"fixed", top:0, width:"100%", backgroundColor:"white" }}>
+      <div style={{ position:"fixed", top:0, width:"100%", backgroundColor:"white", zIndex:40 }}>
         <SidebarContext.Provider
           value={{ sidebar, setSideBar }}
           children={

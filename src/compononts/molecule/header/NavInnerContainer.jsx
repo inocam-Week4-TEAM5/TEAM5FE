@@ -44,8 +44,7 @@ export function NavInnerContainer() {
           <SC.TitleH
               $fontS="1.2rem"
               $cursor={true}
-              onClick={()=>postLoginRTK({  email: "test12345", password: "test12345" })}  // 진웅님
-              // onClick={()=>postLoginRTK({ email: "asd2@gmail.com", password: "!asd123456" })}  // 정은님
+              onClick={()=>postLoginRTK({  email: "test12345", password: "test12345" })}
               children={"로그인"}
             />
         </FlexBox>

@@ -53,6 +53,8 @@ const SideBarBtn = styled.div`
 `;
 
 const SideBar = styled.div`
+  position: relative;
+
   @media (min-width: 700px) {
     display: none;
   }
@@ -91,6 +93,7 @@ const SideNavLink = styled.div`
   background-color: ${({theme}) => theme.color.white};
   transform: rotate(20deg);
   transition: all 0.2s;
+  z-index: 5;
 
   &:hover {
     transform: rotate(10deg);

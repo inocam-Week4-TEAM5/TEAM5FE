@@ -7,6 +7,8 @@ import { SidebarContext } from "../../organism/Header";
 import { useUtilities } from "../../../hooks/useUtilities";
 import { theme } from "../../../theme";
 import { UserImg } from "../../atom";
+import panda2 from '../../../img/panda 2.png'
+import { keyframes, styled } from "styled-components";
 
 
 export function SideBarContainer() {
@@ -17,10 +19,8 @@ export function SideBarContainer() {
   );
 
   return (
-    <SC.SideBar $sidebar={sidebar} onMouseLeave={FalseState(setSideBar)}>
+    <SC.SideBar $sidebar={sidebar}onMouseLeave={FalseState(setSideBar)} > 
       <FlexBox $fd="column" $type="sideBar">
-        <UserImg size={100} color={theme.color.white} icolor={theme.color.green}/>
-        <div className="nickName" children="NickName" />
         <FlexBox $fd="column" $gap="2em" $type="sideBarNav">
           {MobileHeaderLinks.map(({ innerText, path }) => (
             <SC.SideNavLink
@@ -39,7 +39,32 @@ export function SideBarContainer() {
               children="로그인"
             />
         </FlexBox>
+        <PandaImg src={panda2} alt="panda2"/>
       </FlexBox>
     </SC.SideBar>
   );
 }
+
+const Pandakeyframes = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+`
+
+const PandaImg = styled.img`
+  position: absolute;
+  display: block;
+  width: 450px;
+  bottom: -50px;
+  right: -100px;
+  animation: ${Pandakeyframes} 1s linear infinite alternate;
+
+  @media (max-width: 700px) {
+    width: 300px;
+    bottom: -25px;
+    right: -60px;
+  }
+`

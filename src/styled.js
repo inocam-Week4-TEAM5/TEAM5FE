@@ -31,7 +31,7 @@ const FlexBox = styled.div`
       : $type === "sideBarNav"
       ? css`
           position: absolute;
-          top: 50vh;
+          top: 10vh;
         `
       : $type === "mobilePost"
       ? css`

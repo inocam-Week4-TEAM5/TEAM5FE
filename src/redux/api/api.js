@@ -2,10 +2,10 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
 const instanse = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_KEY, // 재익님 서버 
+  baseURL: process.env.REACT_APP_SERVER_KEY, // 재익님 서버
   // baseURL:"http://1.244.223.183:5000" // 준우님서버
   // baseURL:  process.env.REACT_APP_INOCAM_KEY2 // 진웅님 서버
-  // baseURL: "http://54.180.120.109/" // 정은님 서버 
+  // baseURL: "http://54.180.120.109/" // 정은님 서버
 });
 
 instanse.interceptors.request.use((config) => {
@@ -16,15 +16,15 @@ instanse.interceptors.request.use((config) => {
       .filter((cookies) => cookies.includes("accessToken"))[0]
       ?.split("=")[1];
   if (accessToken) config.headers.authorization = accessToken;
-  return config; 
+  return config;
 });
 
 instanse.interceptors.response.use((config) => {
-  config.headers.authorization && (document.cookie = `accessToken=${config.headers.authorization};  path=/;`) // expires=${exp}
+  config.headers.authorization &&
+    (document.cookie = `accessToken=${config.headers.authorization};  path=/;`); // expires=${exp}
 
-  return config
+  return config;
 });
-
 
 const axiosBaseQuery =
   () =>
@@ -41,14 +41,14 @@ const axiosBaseQuery =
               "Content-Type": "multipart/form-data",
             },
           });
-          return {data : postres.data}  
+          return { data: postres.data };
         case "login":
           const auth = await instanse({ method, url, data });
-          return {data : auth.data} 
+          return { data: auth.data };
         default:
           const res = await instanse({ method, url, data });
           console.log(`${method}`, res);
-          return { data :res.data };
+          return { data: res.data };
       }
     } catch (error) {
       // 오류를 직렬화 가능한 형태로 변환하여 반환
@@ -58,7 +58,7 @@ const axiosBaseQuery =
         code: error.code,
         // 필요한 경우 오류 객체의 다른 속성도 추가로 포함시킬 수 있습니다.
       };
-      return { error : serializedError }
+      return { error: serializedError };
     }
   };
 
@@ -72,8 +72,8 @@ export const inobaoQuery = createApi({
         url: "/api/auth/login",
         method: "post",
         data: payload,
-        types:"login"
-      })
+        types: "login",
+      }),
     }),
     // About Post (1) READ
     getPostRTK: builder.query({
@@ -110,7 +110,7 @@ export const inobaoQuery = createApi({
         url: `/api/posts/${postid}/comments`,
         method: "get",
       }),
-      providesTags:["POSTS"],
+      providesTags: ["POSTS"],
     }),
     // About PostComment (2) CREATE
     postCommentsRTK: builder.mutation({
@@ -138,22 +138,22 @@ export const inobaoQuery = createApi({
       }),
       invalidatesTags: ["POSTS"],
     }),
-     // About PostLiked (1) 
-     likedPostRTK: builder.mutation({
+    // About PostLiked (1)
+    likedPostRTK: builder.mutation({
       query: (postId) => ({
         url: `/api/posts/${postId}/like`,
         method: "post",
       }),
       invalidatesTags: ["POSTS"],
     }),
-    // About CommentLiked (1) 
+    // About CommentLiked (1)
     likedCommentRTK: builder.mutation({
-    query: (commentId) => ({
-      url: `/api/comments/${commentId}/like`,
-      method: "post",
+      query: (commentId) => ({
+        url: `/api/comments/${commentId}/like`,
+        method: "post",
+      }),
+      invalidatesTags: ["POSTS"],
     }),
-    invalidatesTags: ["POSTS"],
-  }),
   }),
 });
 
@@ -168,5 +168,5 @@ export const {
   useDeleteCommentsRTKMutation,
   usePatchCommentsRTKMutation,
   useLikedPostRTKMutation,
-  useLikedCommentRTKMutation
+  useLikedCommentRTKMutation,
 } = inobaoQuery;
