@@ -137,7 +137,7 @@ export const Register = () => {
 
   return (
     <Container>
-      <Title>TEAM9 ID 생성</Title>
+      <Title>InoBao ID 생성</Title>
       <Form onSubmit={handleSubmit}>
     <Input
       type="email"
@@ -264,7 +264,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   position: relative;
-  right: -30px;
+  right: -5px;
   margin-top: 40px;
 `;
 
