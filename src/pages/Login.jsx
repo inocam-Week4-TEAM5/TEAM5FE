@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { instanse } from '../redux/api/api';
 
-const Login = () => {
+export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,25 +18,28 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("통신")
     try {
-      const response = await fetch('http://18.219.10.23:8080/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) {
-        throw new Error('로그인 실패');
-      }
-      // Here we get the JWT token from the response headers
-      const token = response.headers.get('Authorization');
-      if (token) {
-        window.localStorage.setItem('jwtToken', token);
-        navigate('/post');
-      } else {
-        throw new Error('JWT 토큰이 응답 헤더에 없습니다');
-      }
+      const response = await instanse.post('/api/auth/login', { email, password })
+      if(response.headers.authorization) navigate('/')
+      // const response = await instanse('/api/auth/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email, password }),
+      // })
+      // if (!response.ok) {
+      //   throw new Error('로그인 실패');
+      // }
+      // // Here we get the JWT token from the response headers
+      // const token = response.headers.get('Authorization');
+      // if (token) {
+      //   // window.localStorage.setItem('jwtToken', token);
+      //   navigate('/');
+      // } else {
+      //   throw new Error('JWT 토큰이 응답 헤더에 없습니다');
+      // }
     } catch (error) {
       alert('아이디 혹은 비밀번호를 잘못 입력하셨거나 없는 회원 아이디입니다.');
     }
@@ -92,5 +96,4 @@ const Button = styled.button`
   margin-top: 40px;
 `;
 
-export default Login;
 

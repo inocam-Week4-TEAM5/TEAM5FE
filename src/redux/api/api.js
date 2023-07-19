@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
-const instanse = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_KEY, // 재익님 서버
+export const instanse = axios.create({
+  // baseURL: process.env.REACT_APP_SERVER_KEY, // 재익님 서버
   // baseURL:"http://1.244.223.183:5000" // 준우님서버
-  // baseURL:  process.env.REACT_APP_INOCAM_KEY2 // 진웅님 서버
+  baseURL:  process.env.REACT_APP_INOCAM_KEY // 진웅님 서버
   // baseURL: "http://54.180.120.109/" // 정은님 서버
 });
 
@@ -20,6 +20,7 @@ instanse.interceptors.request.use((config) => {
 });
 
 instanse.interceptors.response.use((config) => {
+  console.log(config);
   config.headers.authorization &&
     (document.cookie = `accessToken=${config.headers.authorization};  path=/;`); // expires=${exp}
 

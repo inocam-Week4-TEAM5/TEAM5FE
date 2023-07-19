@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
-const Register = () => {
+export const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +44,7 @@ const Register = () => {
   const handleEmailDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://18.219.10.23:8080/api/auth/email?email=${email}`, {
+      const response = await fetch(`http://3.15.32.86:8080/api/auth/email?email=${email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Register = () => {
   const handleNicknameDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://18.219.10.23:8080/api/auth/nickname?nickname=${nickname}`, {
+      const response = await fetch(`http://3.15.32.86:8080/api/auth/nickname?nickname=${nickname}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://18.219.10.23:8080/api/auth/signin', {
+      const response = await fetch('http://3.15.32.86:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -332,4 +332,3 @@ const ModalButton = styled.button`
   display: block;
 `;
 
-export default Register; 
