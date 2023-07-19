@@ -1,9 +1,7 @@
 import React from 'react'
 
-function ErrorBoundery() {
+export function ErrorBoundery() {
   return (
     <div>ErrorBoundery</div>
   )
 }
-
-export default ErrorBoundery

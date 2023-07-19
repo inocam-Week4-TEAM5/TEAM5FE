@@ -40,7 +40,7 @@ const Login = () => {
       alert('아이디 혹은 비밀번호를 잘못 입력하셨거나 없는 회원 아이디입니다.');
     }
   };
-
+  
   return (
     <Container>
       <Title>TEAM9에 로그인 하세요</Title>
@@ -93,3 +93,4 @@ const Button = styled.button`
 `;
 
 export default Login;
+

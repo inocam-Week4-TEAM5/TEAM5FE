@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginSlice from "../modules/loginSlice"
+import decodeTokenSlice from '../modules/decodeTokenSlice'
 
-const store = configureStore({
-  reducer:{loginSlice}
+export const store = configureStore({
+  reducer:{loginSlice, decodeTokenSlice}
 })
-
-export default store
