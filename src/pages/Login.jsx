@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -91,6 +91,4 @@ const Button = styled.button`
   padding: 8px 16px;
   margin-top: 40px;
 `;
-
-export default Login;
 
