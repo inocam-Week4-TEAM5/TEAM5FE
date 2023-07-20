@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { usePostLoginRTKMutation } from "../redux"
+import { useDispatch } from "react-redux"
+import { deleteToken } from "../redux/modules/tokenSlice"
 
 export const useRouter = (changeState) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [postLoginRTK] = usePostLoginRTKMutation()
 
   const ClickNavigate = (path) => () => {
@@ -18,16 +21,16 @@ export const useRouter = (changeState) => {
     postLoginRTK(path)
     changeState()
   }
+  const logoutHandler = () => {
+    document.cookie = `accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    dispatch(deleteToken())
+    navigate('/')
+  }   
 
   const HeaderLinks = [
-    {innerText:"Post", path:"/post"},
-    {innerText:"회원가입", path:"/"},
-    // {innerText:"로그인", path:"/"},
-  ]
-  const MobileHeaderLinks = [
     {innerText:"Home", path:"/"}, 
-    ...HeaderLinks
-  ]
+    {innerText:"Post", path:"/post"}
+  ]  
 
-  return { ClickNavigate, MoblieClickNavigate, MoblieLoginNavigate, HeaderLinks, MobileHeaderLinks }
+  return { ClickNavigate, MoblieClickNavigate, MoblieLoginNavigate, logoutHandler, HeaderLinks }
 }

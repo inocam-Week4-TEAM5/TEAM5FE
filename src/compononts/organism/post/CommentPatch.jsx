@@ -8,9 +8,15 @@ import { theme } from "../../../theme";
 import { postIndividual } from "./PostBox";
 import { useDeleteCommentsRTKMutation, useLikedCommentRTKMutation, usePatchCommentsRTKMutation, } from "../../../redux";
 import { AiFillHeart } from 'react-icons/ai'
+import { useSelector } from "react-redux";
+import { selectToken } from "../../../redux/modules/tokenSlice";
+import { commentsContext } from "../../molecule/post/CommnetBoxIndividual";
 
-function CommentPatch({commentsId, comment, liked, likeCount}) {
-  const [postText, setPostText] = useState(comment);
+function CommentPatch() {
+  const {id:commentsId, liked, likeCount, nickname, content} = useContext(commentsContext)
+  const [postText, setPostText] = useState(content);
+  const {decodeToken} = useSelector(selectToken);
+  console.log(decodeToken.nickname)
   const { id } = useContext(postIndividual)
   const postRef = useRef(null);
   const [patchPostShow, setPatchPostShow] = useState(false)
@@ -49,8 +55,10 @@ function CommentPatch({commentsId, comment, liked, likeCount}) {
   // if (window.event.keyCode == 13) 
   return (
     <FlexBox $gap="0.5em">
+      {decodeToken.nickname === nickname && (<>
       <EditBtn onClick={onDeleteHandler}>{<RiDeleteBin2Fill size={"1rem"} color={theme.color.darkgreen}/>} 삭제</EditBtn>
       <EditBtn onClick={onPatchHandler}>{<TbEdit size={"1rem"} color={theme.color.lightgreen}/>} 수정</EditBtn>
+      </>)}
       <EditBtn onClick={onLikedClike}>{<AiFillHeart color={!liked ? theme.color.gray : theme.color.orange }/>} 좋아요({likeCount})</EditBtn>
 
 

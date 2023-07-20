@@ -2,10 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
 export const instanse = axios.create({
-  // baseURL: process.env.REACT_APP_SERVER_KEY, // 재익님 서버
-  // baseURL:"http://1.244.223.183:5000" // 준우님서버
-  baseURL:  process.env.REACT_APP_INOCAM_KEY // 진웅님 서버
-  // baseURL: "http://54.180.120.109/" // 정은님 서버
+  baseURL:  process.env.REACT_APP_INOCAM_KEY
 });
 
 instanse.interceptors.request.use((config) => {
@@ -20,7 +17,6 @@ instanse.interceptors.request.use((config) => {
 });
 
 instanse.interceptors.response.use((config) => {
-  console.log(config);
   config.headers.authorization &&
     (document.cookie = `accessToken=${config.headers.authorization};  path=/;`); // expires=${exp}
 
@@ -30,7 +26,6 @@ instanse.interceptors.response.use((config) => {
 const axiosBaseQuery =
   () =>
   async ({ url, method, data, types }) => {
-    console.log("댓글수정", data);
     try {
       switch (types) {
         case "addpost":
@@ -48,7 +43,6 @@ const axiosBaseQuery =
           return { data: auth.data };
         default:
           const res = await instanse({ method, url, data });
-          console.log(`${method}`, res);
           return { data: res.data };
       }
     } catch (error) {
@@ -57,7 +51,6 @@ const axiosBaseQuery =
         message: error.message,
         name: error.name,
         code: error.code,
-        // 필요한 경우 오류 객체의 다른 속성도 추가로 포함시킬 수 있습니다.
       };
       return { error: serializedError };
     }

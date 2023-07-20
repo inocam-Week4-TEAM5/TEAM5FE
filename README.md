@@ -50,5 +50,8 @@
     로그인ID : kozy@gmail.com
     로그인PW : kozy
 
+    ```jsx
+    onClick={()=>postLoginRTK({  email: "kozy@gmail.com", password: "kozy" })}
+    ```
 
 </details>

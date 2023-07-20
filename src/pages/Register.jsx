@@ -44,7 +44,7 @@ export const Register = () => {
   const handleEmailDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://3.15.32.86:8080/api/auth/email?email=${email}`, {
+      const response = await fetch(`http://3.38.246.234:8080/api/auth/email?email=${email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export const Register = () => {
   const handleNicknameDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://3.15.32.86:8080/api/auth/nickname?nickname=${nickname}`, {
+      const response = await fetch(`http://3.38.246.234:8080/api/auth/nickname?nickname=${nickname}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://3.15.32.86:8080/api/auth/signin', {
+      const response = await fetch('http://3.38.246.234:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export const Register = () => {
 
       if (response.ok) {
         setModalSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
-        navigate('/login');
+        navigate('/login', { replace: true });
       } else {
         setModalFailureMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
       }

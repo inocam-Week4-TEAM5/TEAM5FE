@@ -6,7 +6,7 @@ import { useGetPostRTKQuery } from "../redux";
 
 export function Post() {
 
-  const {isLoading, isError, data} = useGetPostRTKQuery()
+  const {isLoading, data} = useGetPostRTKQuery()
 
   if (isLoading) return <div>로딩중</div>
   return (
@@ -16,12 +16,6 @@ export function Post() {
       {/* Post 게시글 뷰포트 */}
       <Compo.PostsLayout>
         <Compo.PostBoxLayout>
-
-
-        {/* {Array.from({length:10}, () => 0).map((_,index) => index % 2 === 0 
-          ?  <Compo.PostBox key={index}/>
-          :  <Compo.PostBox key={index} $backColor={"postsEven"}/>
-        )}   */}
 
         {data && data.map((posts, index) => index % 2 === 0 
           ? <Compo.PostBox key={index} data={posts}/>
