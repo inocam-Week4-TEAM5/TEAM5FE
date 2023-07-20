@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import * as Pages from "./pages";
+import { Header } from "./compononts";
+import { GlobalStyled } from "./GlobalStyled";
+import { Route, Routes } from "react-router-dom";
+import ProtectivePages from "./pages/ProtectivePages";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyled />
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index element={<Pages.Home />} />
+          <Route path="login" element={<Pages.Login />} />
+          <Route element={<ProtectivePages/>}>
+            <Route path="post" element={<Pages.Post />} />
+          </Route>
+          <Route path="register" element={<Pages.Register />} />
+          <Route path="admin" element={<Pages.Admin />} />
+          <Route path="errorboundery" element={<Pages.ErrorBoundery />} />
+          <Route path="*" element={<Pages.NotFound />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

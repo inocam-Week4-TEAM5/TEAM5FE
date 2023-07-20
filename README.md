@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Inocam Week4 - TEAM 9 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 이노캠 대나무숲 
+<details>
+<summary>Page 상세내용</summary>
 
-## Available Scripts
+  |page|설명|
+  |:--|:--|
+  |Home|인터렉티브를 활용한 반응형 Home |
+  |Post, PostWrite|이노캠 사용자들의 대나무숲 커뮤니티|
+  |Login, Register|로그인과 화원가입 페이지|
+  |Admin|관리자 페이지|
 
-In the project directory, you can run:
+### page 컴포넌트
+  |src > page|컴포넌트 설명|
+  |:--|:--|
+  |App.jsx| Router 설정|
+  |Home.jsx|인터렉티브를 활용한 반응형 Home |
+  |Post.jsx|이노캠 사용자들의 대나무숲 커뮤니티(게시글, 댓글)|
+  |PostWrite.jsx|이노캠 사용자들의 대나무숲 커뮤니티 생성|
+  |Login.jsx|로그인 페이지|
+  |Register.jsx|화원가입 페이지|
+  |Admin.jsx|관리자 페이지|
+  |NotFound.jsx|존재하지 않는 페이지 진입시|
+  |ErrorBoundery.jsx|에러 발생시 진입 페이지|
+</details>
 
-### `yarn start`
+<details>
+<summary>라이브러리 관련</summary>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  |라이브러리|버전|라이브러리 설명|
+  |:--|:--:|:--|
+  |axios|^0.0.0|비동기 통신을 위한 프로미스 가반 라이브러리|
+  |dayjs|^0.0.0|날짜 포멧팅을 위한 라이브러리|
+  |react-router-dom|^0.0.0|SPA 기반 React에서의 라우팅 처리를 위한 라이브러리|
+  |@reduxjs/toolkit react-redux|^0.0.0|전역 또는 네트워크 상태 관리를 위한 라이브러리|
+  |styled-compononts|^0.0.0|Css in JS|
+  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+</details>
 
-### `yarn test`
+<details>
+<summary>테스트 계정 셍성(로그인)</summary>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    테스트계정(1)
+    로그인ID : qqq@qqq.com
+    로그인PW : 1!qQ1!qQ
 
-### `yarn build`
+    테스트계정(2)
+    로그인ID : kozy@gmail.com
+    로그인PW : kozy
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```jsx
+    onClick={()=>postLoginRTK({  email: "kozy@gmail.com", password: "kozy" })}
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</details>
