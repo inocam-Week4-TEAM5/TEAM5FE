@@ -39,6 +39,7 @@ export function PostForm() {
 
   // 이미지 업로드에 대한 핸들러(미리보기 및, 리사이징 처리 )
   const onUploadFiles = async (e) => {
+    setShowImg([])
     for (let i = 0; i < e.target.files.length; i++) {
       let file = e.target.files[i];
       let reader = new FileReader();
