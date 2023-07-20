@@ -189,6 +189,8 @@ export function Home() {
     }
   }, [currentScene]);
 
+
+
   return (
     <Comp.Layout>
       {/* ScrollSection0 */}
