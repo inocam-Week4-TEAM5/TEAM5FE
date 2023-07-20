@@ -12,7 +12,7 @@ import {AiFillHeart} from 'react-icons/ai'
 import { useSelector } from "react-redux";
 import { selectToken } from "../../../redux/modules/tokenSlice";
 
-function PostPatch() {
+function PostPatch({inputHandler, clickedPostId}) {
   const {id, contents, liked, likeCount, nickname} = useContext(postIndividual)
   const [postText, setPostText] = useState(contents);
   const [comments, setComments] = useState("");
@@ -26,6 +26,37 @@ function PostPatch() {
   const [postCommentsRTK] = usePostCommentsRTKMutation()
   const [likedPostRTK] = useLikedPostRTKMutation()
   const {decodeToken} = useSelector(selectToken);
+
+  const openInput = () => {
+    setCommentShow(true);
+  }
+
+  const closeInput = () => {
+    setCommentShow(false)
+  }
+
+  const handler = () => {
+    console.log(id, 'id');
+
+    if (commentShow) {
+      closeInput();
+      inputHandler(0);
+    } else {
+      inputHandler(id)
+    }
+  }
+
+  
+
+  useEffect(() => {
+    if(id === clickedPostId){
+      openInput()
+    } else {
+      closeInput()
+    }
+  }, [clickedPostId])
+
+
 
   
   const onDeleteHandler = () => {
@@ -88,7 +119,7 @@ function PostPatch() {
       <EditBtn onClick={onPatchHandler}>{<TbEdit size={"1rem"} color={theme.color.lightgreen}/>} 수정</EditBtn>
       </>)}
       <EditBtn onClick={onLikedClike}>{<AiFillHeart color={!liked ? theme.color.gray : theme.color.orange }/>} 좋아요({likeCount})</EditBtn>
-      <EditBtn onClick={onCommentInput}>{<FaComments size={"1rem"} color={theme.color.lightgreen}/>} 댓글달기</EditBtn>
+      <EditBtn onClick={handler}>{<FaComments size={"1rem"} color={theme.color.lightgreen}/>} 댓글달기</EditBtn>
 
 
       {patchPostShow && (

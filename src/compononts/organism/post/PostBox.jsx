@@ -7,7 +7,7 @@ import { CommnetBoxIndividual } from "../../molecule/post/CommnetBoxIndividual";
 import { theme } from "../../../theme";
 export const postIndividual = createContext(null)
 
-export function PostBox({ data, ...rest }) {
+export function PostBox({ data,  inputHandler, clickedPostId, ...rest }) {
   const [showComment, setShowcomment] = useState(false);
   const { commentList, nickname } = data
   const showCommentToggle = () => {
@@ -28,8 +28,8 @@ export function PostBox({ data, ...rest }) {
                 : <div style={{borderRadius:"50px", padding:".1em .5em", cursor:"pointer", backgroundColor:theme.color.darkgreen, color:theme.color.white}} >댓글{commentList.length}개, 댓글 보기</div>
                 : <div style={{borderRadius:"50px", padding:".1em .5em", cursor:"pointer", backgroundColor:theme.color.darkgreen, color:theme.color.white}} >댓글{commentList.length}개, 댓글 닫기</div>
             }
-          />
-          <PostPatch />
+          /> 
+          <PostPatch inputHandler={inputHandler} clickedPostId={clickedPostId} />
         </FlexBox>
         {showComment &&
           commentList.map((comments, index) => (

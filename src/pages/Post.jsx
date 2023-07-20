@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import * as Compo from "../compononts"; // 상대경로 설정
 import { useGetPostRTKQuery } from "../redux";
@@ -8,7 +8,16 @@ export function Post() {
 
   const {isLoading, data} = useGetPostRTKQuery()
 
+  const [clickedPostId, setClickedPostId] = useState(null);
+
+  console.log(clickedPostId, 'clicked post id')
+  
+  const inputHandler = (id) => {
+    setClickedPostId(id)
+  }
+
   if (isLoading) return <div>로딩중</div>
+
   return (
     <Compo.PostLayout $fd="column" $gap="2rem">
       {/* Post 생성하기에 대한 뷰포트 */}
@@ -17,10 +26,17 @@ export function Post() {
       <Compo.PostsLayout>
         <Compo.PostBoxLayout>
 
-        {data && data.map((posts, index) => index % 2 === 0 
-          ? <Compo.PostBox key={index} data={posts}/>
-          : <Compo.PostBox key={index} $backColor={"postsEven"} data={posts}/>
-          )}
+        {data && data.map((posts, index) =>{
+          
+          const { id: postId } = posts
+
+
+          // if(index % 2 === 0){
+          //   return <Compo.PostBox key={index} data={posts} inputHandler={inputHandler} />
+          // }
+
+          return <Compo.PostBox key={index} $backColor={"postsEven"} data={posts} inputHandler={inputHandler} clickedPostId={clickedPostId} />
+        })}
         
         </Compo.PostBoxLayout>
       </Compo.PostsLayout>
