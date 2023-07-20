@@ -38,7 +38,7 @@ export const Login = () => {
   
   return (
     <Container>
-      <Title>TEAM9에 로그인 하세요</Title>
+      <Title>InoBao에 로그인 하세요</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           type="email"
@@ -87,5 +87,3 @@ const Button = styled.button`
   padding: 8px 16px;
   margin-top: 40px;
 `;
-
-

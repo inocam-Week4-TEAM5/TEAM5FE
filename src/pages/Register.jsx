@@ -114,7 +114,6 @@ export const Register = () => {
 
       if (response.ok) {
         setModalSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
-        navigate('/login', { replace: true });
       } else {
         setModalFailureMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
       }
@@ -130,11 +129,15 @@ export const Register = () => {
     setModalDuplicateMessage('');
     setModalSuccessMessage('');
     setModalFailureMessage('');
+    // 회원가입이 성공한 경우에만 로그인 페이지로 이동
+  if (modalSuccessMessage) {
+    navigate('/login', { replace: true });
+  }
   };
 
   return (
     <Container>
-      <Title>TEAM9 ID 생성</Title>
+      <Title>InoBao ID 생성</Title>
       <Form onSubmit={handleSubmit}>
     <Input
       type="email"
@@ -184,7 +187,7 @@ export const Register = () => {
           />
         )}
         <br />
-        <Button type="submit">Register</Button>
+        <Button type="submit">회원가입</Button>
       </Form>
       <Modal
         isOpen={modalIsOpen}
@@ -202,8 +205,8 @@ export const Register = () => {
             alignItems: 'center',
           },
           content: {
-            height: '100px',
-            width: '200px',
+            height: '200px',
+            width: '400px',
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -261,7 +264,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   position: relative;
-  right: -30px;
+  right: -5px;
   margin-top: 40px;
 `;
 
@@ -303,7 +306,7 @@ const ToggleCheckbox = styled.input`
   height: 0;
 
   &:checked + ${ToggleSlider} {
-    background-color: #2196f3;
+    background-color: #9abe70;
   }
 
   &:checked + ${ToggleSlider}:before {
@@ -331,4 +334,3 @@ const ModalButton = styled.button`
   margin: 0 auto;
   display: block;
 `;
-
