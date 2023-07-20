@@ -5,24 +5,26 @@ import { FlexBox } from "../../../styled";
 /* 컴포넌트 및 Hooks 관련 */
 import { SidebarContext } from "../../organism/Header";
 import { useUtilities } from "../../../hooks/useUtilities";
-import { theme } from "../../../theme";
-import { UserImg } from "../../atom";
 import panda2 from '../../../img/panda 2.png'
 import { keyframes, styled } from "styled-components";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../../redux/modules/tokenSlice";
 
 
 export function SideBarContainer() {
   const { sidebar, setSideBar } = useContext(SidebarContext);
+  const {token} = useSelector(selectToken);
   const { changeState, FalseState } = useUtilities();
-  const { MoblieClickNavigate, MoblieLoginNavigate, MobileHeaderLinks } = useRouter(
+  const { MoblieClickNavigate, logoutHandler, HeaderLinks } = useRouter(
     changeState(setSideBar)
   );
+
 
   return (
     <SC.SideBar $sidebar={sidebar}onMouseLeave={FalseState(setSideBar)} > 
       <FlexBox $fd="column" $type="sideBar">
         <FlexBox $fd="column" $gap="2em" $type="sideBarNav">
-          {MobileHeaderLinks.map(({ innerText, path }) => (
+          {HeaderLinks.map(({ innerText, path }) => (
             <SC.SideNavLink
               key={innerText}
               $fontS="1.2rem"
@@ -31,13 +33,29 @@ export function SideBarContainer() {
               children={innerText}
             />
           ))}
+          {!token 
+            ? (<>
+            <SC.SideNavLink
+            $fontS="1.2rem"
+            $cursor={true}
+            onClick={MoblieClickNavigate("/register")}
+            children={"회원가입"}
+          />
           <SC.SideNavLink
-              $fontS="1.2rem"
-              $cursor={true}
-              // onClick={MoblieLoginNavigate({ email: "zin9@gmail.com", password: "sassdf" })}  // 진웅님
-              onClick={MoblieLoginNavigate({ email: "test12345", password: "test12345" })}  // 재익님
-              children="로그인"
-            />
+            $fontS="1.2rem"
+            $cursor={true}
+            onClick={MoblieClickNavigate("/login")}
+            children={"로그인"}
+          />
+            
+            </>)
+          : <SC.SideNavLink
+          $fontS="1.2rem"
+          $cursor={true}
+          onClick={logoutHandler}
+          children={"로그아웃"}
+        />
+          }
         </FlexBox>
         <PandaImg src={panda2} alt="panda2"/>
       </FlexBox>

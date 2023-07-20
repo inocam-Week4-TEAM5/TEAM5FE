@@ -1,15 +1,18 @@
-import React  from "react";
+import React, { createContext }  from "react";
 import { UserImg } from "../../atom";
 import { theme } from "../../../theme";
 import { FlexBox } from "../../../styled";
 import { PostsText } from "../../css/postStyle";
 import { useGetTime } from "../../../hooks/useGetTime";
 import CommentPatch from "../../organism/post/CommentPatch";
+export const commentsContext = createContext(null)
 
 export function CommnetBoxIndividual ({comments, children}) {
+  
   const {timehandle}  = useGetTime()
   return (
     <>
+    <commentsContext.Provider value={comments}>
       <UserImg size={20} color={theme.color.gray} icolor={theme.color.white} />
       <FlexBox $fd="column" $ai="start" $gap=".5em" style={{ width: "100%" }}>
         <FlexBox $jc="space-between" style={{ width: "100%"}}>
@@ -24,6 +27,7 @@ export function CommnetBoxIndividual ({comments, children}) {
         {children}
       </FlexBox>
       <CommentPatch commentsId={comments.id} comment={comments.content} liked={comments.liked} likeCount={comments.likeCount}/>
+      </commentsContext.Provider>
     </>
   );
 }

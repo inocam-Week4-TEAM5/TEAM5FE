@@ -39,3 +39,19 @@
 
 </details>
 
+<details>
+<summary>테스트 계정 셍성(로그인)</summary>
+
+    테스트계정(1)
+    로그인ID : qqq@qqq.com
+    로그인PW : 1!qQ1!qQ
+
+    테스트계정(2)
+    로그인ID : kozy@gmail.com
+    로그인PW : kozy
+
+    ```jsx
+    onClick={()=>postLoginRTK({  email: "kozy@gmail.com", password: "kozy" })}
+    ```
+
+</details>
