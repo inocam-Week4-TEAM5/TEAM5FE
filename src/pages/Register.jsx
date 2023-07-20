@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
-const Register = () => {
+export const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +44,7 @@ const Register = () => {
   const handleEmailDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://18.219.10.23:8080/api/auth/email?email=${email}`, {
+      const response = await fetch(`http://3.38.246.234:8080/api/auth/email?email=${email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Register = () => {
   const handleNicknameDuplicateCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://18.219.10.23:8080/api/auth/nickname?nickname=${nickname}`, {
+      const response = await fetch(`http://3.38.246.234:8080/api/auth/nickname?nickname=${nickname}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://18.219.10.23:8080/api/auth/signin', {
+      const response = await fetch('http://3.38.246.234:8080/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,6 @@ const Register = () => {
 
       if (response.ok) {
         setModalSuccessMessage('회원가입이 성공적으로 완료되었습니다.');
-        navigate('/login');
       } else {
         setModalFailureMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
       }
@@ -130,11 +129,15 @@ const Register = () => {
     setModalDuplicateMessage('');
     setModalSuccessMessage('');
     setModalFailureMessage('');
+    // 회원가입이 성공한 경우에만 로그인 페이지로 이동
+  if (modalSuccessMessage) {
+    navigate('/login');
+  }
   };
 
   return (
     <Container>
-      <Title>TEAM9 ID 생성</Title>
+      <Title>InoBao ID 생성</Title>
       <Form onSubmit={handleSubmit}>
     <Input
       type="email"
@@ -184,7 +187,7 @@ const Register = () => {
           />
         )}
         <br />
-        <Button type="submit">Register</Button>
+        <Button type="submit">회원가입</Button>
       </Form>
       <Modal
         isOpen={modalIsOpen}
@@ -202,8 +205,8 @@ const Register = () => {
             alignItems: 'center',
           },
           content: {
-            height: '100px',
-            width: '200px',
+            height: '200px',
+            width: '400px',
             position: 'absolute',
             top: '50%',
             left: '50%',
@@ -261,7 +264,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   position: relative;
-  right: -30px;
+  right: -5px;
   margin-top: 40px;
 `;
 
@@ -303,7 +306,7 @@ const ToggleCheckbox = styled.input`
   height: 0;
 
   &:checked + ${ToggleSlider} {
-    background-color: #2196f3;
+    background-color: #9abe70;
   }
 
   &:checked + ${ToggleSlider}:before {
@@ -331,5 +334,3 @@ const ModalButton = styled.button`
   margin: 0 auto;
   display: block;
 `;
-
-export default Register; 
